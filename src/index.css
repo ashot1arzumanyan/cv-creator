@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer utilities {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    @media print {
+        html,
+        body {
+            width: 210mm !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        .print-container {
+            display: block !important;
+            width: 210mm !important;
+            height: auto !important;
+            overflow: visible !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .print-page {
+            display: block !important;
+            break-after: page;
+            width: 210mm !important;
+            height: 297mm !important;
+            background: #F7F7F7 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            /* transform: scale(1.3333); Remove scale if we align dimensions to mm directly or ensure 595px maps to A4 properly in the browser's PDF engine, but for safety lets keep the exact logic from before but refactored. 
+               Actually, the previous code had 595px and scale 1.3333 which effectively is ~793px width. A4 is 210mm which is roughly 794px at 96dpi. 
+               Let's keep the user's logic exactly for now to avoid breaking the layout scale. 1px = 0.75pt. 595pt is A4 width. 
+            */
+            width: 595px !important;
+            height: 842px !important;
+            transform: scale(1.3333);
+            transform-origin: top left;
+            overflow: hidden;
+            page-break-after: always;
+            margin: 0 !important;
+            position: relative !important;
+            left: 0 !important;
+            top: 0 !important;
+        }
+
+        .print-page:last-child {
+            break-after: auto;
+            page-break-after: auto;
+        }
+    }
+}
